@@ -1,0 +1,80 @@
+// Variables
+$primary-color: #003366;
+$background-color: #f7f7f7;
+$text-dark: #1a1a1a;
+$text-medium: #333333;
+$text-light: #777777;
+$accent-color: #ffcc00;
+$border-dark: 0.125rem solid $text-dark; // 2px -> rem
+$border-thin: 0.0625rem solid $text-dark; // 1px -> rem
+$common-radius: 1.25rem; // 20px -> rem
+
+// Breakpoints (keep in px for media queries)
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+
+// Mixins
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin text-style($size, $weight, $color) {
+    color: $color;
+    font-size: $size;
+    font-family: Arial, sans-serif;
+    font-weight: $weight;
+}
+
+@mixin card-shadow {
+    box-shadow: 0.3125rem 0.3125rem 0.625rem rgba(0, 0, 0, 0.3); // 5px 5px 10px -> rem
+}
+
+@mixin outline-style($width, $color, $offset: -0.125rem) { // -2px -> rem
+    outline: $width $color solid;
+    outline-offset: $offset;
+}
+
+@mixin responsive-padding($base) {
+    padding: clamp($base * 0.5, 2vw, $base);
+}
+
+// Media query mixins
+@mixin respond-to($breakpoint) {
+    @if $breakpoint == sm {
+        @media (max-width: $breakpoint-sm) {
+            @content;
+        }
+    } @else if $breakpoint == md {
+        @media (max-width: $breakpoint-md) {
+            @content;
+        }
+    } @else if $breakpoint == lg {
+        @media (max-width: $breakpoint-lg) {
+            @content;
+        }
+    } @else if $breakpoint == xl {
+        @media (max-width: $breakpoint-xl) {
+            @content;
+        }
+    }
+}
+
+// Global styles for responsive design
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+}
