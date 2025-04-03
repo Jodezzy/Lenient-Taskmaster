@@ -23,7 +23,7 @@ const Header = () => {
   return (
     <header className="app-header">
       <div className="app-header__logo-container">
-        <div className="app-header__logo"></div>
+        <img src="/cat-svgrepo-com.svg" alt="Taskmaster Logo" className="app-header__logo" />
       </div>
       <div className="app-header__title-container">
         <div className="app-header__title">Taskmaster</div>

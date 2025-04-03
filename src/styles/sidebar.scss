@@ -1,0 +1,94 @@
+@import './variables';
+
+.sidebar-trigger {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 1rem;
+    height: 100vh;
+    z-index: 999;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -18rem;
+    width: 18rem;
+    height: 100vh;
+    background: $text-dark;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    border-right: $border-thin;
+    display: flex;
+    flex-direction: column;
+
+    @include respond-to(sm) {
+        display: none;
+    }
+
+    &--open {
+        transform: translateX(18rem);
+    }
+
+    &__header {
+        padding: 1.5rem;
+        border-bottom: $border-extra-thin;
+    }
+
+    &__title {
+        @include text-style(1.25rem, 700, $primary-color);
+    }
+
+    &__content {
+        flex: 1;
+        padding: 1rem 0;
+        overflow-y: auto;
+    }
+
+    &__menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    &__menu-item {
+        padding: 0.5rem 1.5rem;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background-color: rgba($primary-color, 0.1);
+        }
+    }
+
+    &__link {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    &__link-text {
+        @include text-style(1rem, 500, $primary-color);
+    }
+
+    &__footer {
+        padding: 1rem 1.5rem;
+        border-top: $border-extra-thin;
+    }
+
+    &__settings {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        cursor: pointer;
+        padding: 0.5rem 0;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    &__settings-icon {
+        font-size: 1.25rem;
+    }
+} 
