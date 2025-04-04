@@ -5,10 +5,13 @@ $text-dark: #1a1a1a;
 $text-medium: #333333;
 $text-light: #777777;
 $accent-color: #ffcc00;
-$border-thick: 0.3125rem solid $text-dark; // 5px -> rem
-$border-thin: 0.2rem solid $text-dark; // 2px -> rem
-$border-extra-thin: 0.0625rem solid $text-dark; // 1px -> rem
-$common-radius: 1.25rem; // 20px -> rem
+$common-radius: 1.25rem; 
+
+// Breakpoints (keep in px for media queries)
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
 
 // Fonts
 @font-face {
@@ -18,13 +21,6 @@ $common-radius: 1.25rem; // 20px -> rem
     font-style: normal;
     font-display: swap;
 }
-
-// Breakpoints (keep in px for media queries)
-$breakpoint-sm: 576px;
-$breakpoint-md: 768px;
-$breakpoint-lg: 992px;
-$breakpoint-xl: 1200px;
-
 
 // Mixins
 @mixin flex-center {
@@ -58,6 +54,37 @@ $breakpoint-xl: 1200px;
     padding: clamp($base * 0.5, 2vw, $base);
 }
 
+// Scrollbar mixin
+@mixin modern-scrollbar {
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-button {
+        display: none;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $secondary-color;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background: darken($secondary-color, 10%);
+        }
+    }
+
+    // Firefox scrollbar
+    scrollbar-width: thin;
+    scrollbar-color: $secondary-color rgba(0, 0, 0, 0.1);
+}
+
 // Media query mixins
 @mixin respond-to($breakpoint) {
     @if $breakpoint == sm {
@@ -87,4 +114,9 @@ body {
     height: 100%;
     overflow-x: hidden;
     font-family: 'Mattone', Arial, sans-serif;
+}
+
+// Global scrollbar styling
+html {
+    @include modern-scrollbar;
 }

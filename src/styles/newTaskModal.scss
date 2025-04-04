@@ -1,0 +1,353 @@
+@import "./variables.scss";
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.modal-content {
+    background-color: $primary-color;
+    border-radius: $common-radius;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    cursor: default;
+    @include card-shadow;
+    animation: modalFadeIn 0.3s ease-out;
+    @include modern-scrollbar;
+    display: flex;
+    flex-direction: column;
+
+    @keyframes modalFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+.modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .modal-title {
+        color: $primary-color;
+        font-size: 32px;
+        font-family: 'Mattone', Arial, sans-serif;
+        font-weight: bold;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        background-color: $secondary-color;
+        padding: 5px 30px;
+        border-radius: 30px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        margin: 0;
+    }
+}
+
+.close-button {
+    display: none;
+}
+
+form {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    flex: 1;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    width: 100%;
+
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: $text-dark;
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    textarea,
+    select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: $common-radius;
+        font-size: 1rem;
+        transition: border-color 0.2s;
+        background-color: $primary-color;
+        color: $text-dark;
+        box-sizing: border-box;
+
+        &:focus {
+            outline: none;
+            border-color: $secondary-color;
+        }
+
+        &::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+
+    textarea {
+        min-height: 100px;
+        resize: vertical;
+        max-height: 200px;
+    }
+}
+
+.category-input,
+.categories-list,
+.category-tag {
+    display: none;
+}
+
+.category-select {
+    position: relative;
+    width: 100%;
+
+    select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: $common-radius;
+        font-size: 1rem;
+        transition: border-color 0.2s;
+        background-color: $primary-color;
+        color: $text-dark;
+        appearance: none;
+        cursor: pointer;
+        padding-right: 2.5rem;
+
+        &:focus {
+            outline: none;
+            border-color: $secondary-color;
+        }
+
+        option {
+            padding: 0.5rem;
+            
+            &[value="add_new"] {
+                color: $secondary-color;
+                font-weight: 500;
+            }
+        }
+    }
+
+    &::after {
+        content: "▼";
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $text-medium;
+        pointer-events: none;
+        font-size: 0.8rem;
+    }
+}
+
+.task-type-switch {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+
+    span {
+        color: $text-medium;
+        font-weight: 900;
+        white-space: nowrap;
+        font-size: 1.1rem;
+        flex: 1;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 0;
+
+        &.active {
+            color: $secondary-color;
+        }
+
+        &:first-child {
+            justify-content: flex-end;
+            padding-right: 0.5rem;
+        }
+
+        &:last-child {
+            justify-content: flex-start;
+            padding-left: 0.5rem;
+        }
+    }
+
+    .switch {
+        flex: 0 0 auto;
+    }
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+
+    input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+
+        &:checked + .slider {
+            background-color: $accent-color;
+        }
+
+        &:not(:checked) + .slider {
+            background-color: $secondary-color;
+        }
+
+        &:checked + .slider:before {
+            transform: translateX(26px);
+        }
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: .4s;
+        border-radius: 34px;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        &:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: $primary-color;
+            transition: .4s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
+.task-settings-container {
+    background-color: $primary-color;
+    border-radius: $common-radius;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: inset 0 5px 5px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    min-height: 150px;
+
+    .form-group {
+        margin-bottom: 1rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.leniency-buttons {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+    justify-content: space-between;
+
+    .leniency-button {
+        flex: 1;
+        padding: 0.75rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: $common-radius;
+        background-color: $primary-color;
+        color: $text-medium;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+        font-size: 0.9rem;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        &.active {
+            background-color: $secondary-color;
+            color: $primary-color;
+            border-color: $secondary-color;
+        }
+    }
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+
+    button {
+        padding: 0.75rem 1.5rem;
+        border-radius: $common-radius;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        height: 2.75rem;
+        font-size: 0.9rem;
+        white-space: nowrap;
+
+        &:first-child {
+            background-color: $primary-color;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: $text-dark;
+
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.05);
+            }
+        }
+
+        &:last-child {
+            background-color: $secondary-color;
+            border: none;
+            color: $primary-color;
+
+            &:hover {
+                background-color: darken($secondary-color, 10%);
+            }
+        }
+    }
+} 

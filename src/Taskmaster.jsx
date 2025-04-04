@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import Header from "./components/header";
+import Sidebar from "./components/Sidebar";
+import NewTaskModal from "./components/NewTaskModal";
 import "./styles/taskmaster.scss";
 
 const TaskMaster = () => {
     const [isFlipping, setIsFlipping] = useState(false);
     const [animationPhase, setAnimationPhase] = useState("");
     const [sidebarPhase, setSidebarPhase] = useState("");
+    const [isNewTaskModalOpen, setIsNewTaskModalOpen] = useState(false);
 
     const handleReroll = () => {
         if (isFlipping) return;
@@ -28,8 +31,14 @@ const TaskMaster = () => {
         }, 800);
     };
 
+    const handleNewTask = (taskData) => {
+        // Handle the new task data here
+        console.log("New task created:", taskData);
+    };
+
     return (
         <div className="taskmaster">
+            <Sidebar onNewTask={() => setIsNewTaskModalOpen(true)} />
             <Header />
 
             <main className="taskmaster__content">
@@ -118,6 +127,12 @@ const TaskMaster = () => {
                     </div>
                 </div>
             </main>
+
+            <NewTaskModal
+                isOpen={isNewTaskModalOpen}
+                onClose={() => setIsNewTaskModalOpen(false)}
+                onSubmit={handleNewTask}
+            />
         </div>
     );
 };
