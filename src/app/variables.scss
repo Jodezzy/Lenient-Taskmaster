@@ -16,7 +16,7 @@ $breakpoint-xl: 1200px;
 // Fonts
 @font-face {
     font-family: 'Mattone';
-    src: url('/fonts/Mattone-150.woff2') format('woff2');
+    src: url('src/app/fonts/Mattone-Regular.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -71,18 +71,18 @@ $breakpoint-xl: 1200px;
     }
 
     &::-webkit-scrollbar-thumb {
-        background: $secondary-color;
+        background: $text-dark;
         border-radius: 4px;
         transition: background-color 0.2s;
 
         &:hover {
-            background: darken($secondary-color, 10%);
+            background: $text-dark, 10%;
         }
     }
 
     // Firefox scrollbar
     scrollbar-width: thin;
-    scrollbar-color: $secondary-color rgba(0, 0, 0, 0.1);
+    scrollbar-color: $text-dark rgba(0, 0, 0, 0.1); 
 }
 
 // Media query mixins

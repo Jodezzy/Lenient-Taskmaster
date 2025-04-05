@@ -1,4 +1,5 @@
-@import "./variables.scss";
+@use "sass:color";
+@use "../../app/variables.scss";
 
 // Hitbox for detection
 .sidebar-hitbox {
@@ -15,7 +16,7 @@
     top: 0;
     width: 280px;
     height: 100%;
-    background-color: $primary-color;
+    background-color: variables.$primary-color;
     border-top-right-radius: 2.5rem;
     border-bottom-right-radius: 2.5rem;
     z-index: 999;
@@ -24,7 +25,7 @@
     box-shadow: 5px 0 20px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s ease-in-out;
     transform: translateX(-100%);
-    @include modern-scrollbar;
+    @include variables.modern-scrollbar;
 
     &.open {
         transform: translateX(0);
@@ -38,7 +39,7 @@
     }
 
     &-title {
-        color: $text-dark;
+        color: variables.$text-dark;
         margin: 0;
         font-size: 2rem;
         font-weight: 900;
@@ -98,7 +99,7 @@
         text-align: left;
         cursor: pointer;
         font-size: 0.9rem;
-        color: $text-medium;
+        color: variables.$text-medium;
         transition: background-color 0.2s ease;
         border-radius: 0.75rem;
         height: 2.5rem;
@@ -118,11 +119,11 @@
     }
 
     .new-task-button {
-        background-color: $secondary-color;
-        color: $primary-color;
+        background-color: variables.$secondary-color;
+        color: variables.$primary-color;
         border: none;
         padding: 0.5rem 1rem;
-        border-radius: 0.75rem;
+        border-radius: variables.$common-radius;
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -142,7 +143,10 @@
         }
 
         &:hover {
-            background-color: darken($secondary-color, 10%);
+            background-color: color.adjust(
+                variables.$secondary-color,
+                $lightness: -10%
+            );
 
             .tooltip {
                 opacity: 1;
@@ -156,8 +160,8 @@
             // left: 50%;
             transform: translateY(10px);
             bottom: calc(100% + 10px);
-            background-color: $text-dark;
-            color: $primary-color;
+            background-color: variables.$text-dark;
+            color: variables.$primary-color;
             padding: 0.75rem 1rem;
             border-radius: 0.5rem;
             font-size: 0.9rem;
@@ -170,15 +174,15 @@
             text-align: center;
             min-width: 180px;
 
-            &::after {
-                content: '';
+            &::hov &::after {
+                content: "";
                 position: absolute;
                 bottom: -6px;
                 left: 50%;
                 transform: translateX(-50%);
                 border-width: 6px 6px 0;
                 border-style: solid;
-                border-color: $text-dark transparent transparent;
+                border-color: variables.$text-dark transparent transparent;
             }
 
             .tooltip-text {
@@ -214,7 +218,7 @@
             width: 20px;
             height: 20px;
             flex-shrink: 0;
-            stroke: $text-medium;
+            stroke: variables.$text-medium;
         }
 
         &:hover {

@@ -1,14 +1,10 @@
-import React, { useState } from "react";
-import Header from "./components/header";
-import Sidebar from "./components/Sidebar";
-import NewTaskModal from "./components/NewTaskModal";
-import "./styles/taskmaster.scss";
+import React, { useState, useEffect } from "react";
+import "./style.scss";
 
 const TaskMaster = () => {
     const [isFlipping, setIsFlipping] = useState(false);
     const [animationPhase, setAnimationPhase] = useState("");
     const [sidebarPhase, setSidebarPhase] = useState("");
-    const [isNewTaskModalOpen, setIsNewTaskModalOpen] = useState(false);
 
     const handleReroll = () => {
         if (isFlipping) return;
@@ -31,16 +27,20 @@ const TaskMaster = () => {
         }, 800);
     };
 
-    const handleNewTask = (taskData) => {
-        // Handle the new task data here
-        console.log("New task created:", taskData);
-    };
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.code === "Space" && !isFlipping) {
+                e.preventDefault();
+                handleReroll();
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [isFlipping]);
 
     return (
         <div className="taskmaster">
-            <Sidebar onNewTask={() => setIsNewTaskModalOpen(true)} />
-            <Header />
-
             <main className="taskmaster__content">
                 <div className="taskmaster__main-area">
                     <div className="taskmaster__task-showcase">
@@ -74,12 +74,13 @@ const TaskMaster = () => {
                                     </div>
                                 </div>
                             </div>
+
                             {/* Back of the card */}
                             <div className="task-card__back">
                                 <div className="task-card__back-content">
                                     <div className="task-card__back-logo">
                                         <img
-                                            src="/cat-svgrepo-com.svg"
+                                            src="src/app/assets/LenTask_logo.svg"
                                             alt="Cat Logo"
                                         />
                                     </div>
@@ -121,18 +122,18 @@ const TaskMaster = () => {
                     >
                         <div className="reroll-button__icon"></div>
                         <div className="reroll-button__text">Reroll</div>
+                        {/* <div className="tooltip">
+                            <div className="tooltip-text">
+                                Create a new task
+                            </div>
+                            <div className="tooltip-shortcut">Ctrl + N/T</div>
+                        </div> */}
                     </button>
                     <div className="taskmaster__queue-link">
                         show reroll queue
                     </div>
                 </div>
             </main>
-
-            <NewTaskModal
-                isOpen={isNewTaskModalOpen}
-                onClose={() => setIsNewTaskModalOpen(false)}
-                onSubmit={handleNewTask}
-            />
         </div>
     );
 };
